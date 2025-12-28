@@ -20,7 +20,7 @@ export default function Navbar() {
 
   return (
     <nav className="w-full bg-white shadow-md sticky top-0 z-50">
-      <div className="container mx-auto flex items-center justify-between py-4 px-6 md:px-0">
+      <div className="max-w-full container mx-auto flex items-center justify-between py-4 px-6 md:px-0">
         <Link to="/" className="font-bold text-2xl text-sky-600">
           MediSync
         </Link>
