@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import authRoutes from "./routes/auth.routes.js";
 import medicineRoutes from "./routes/medicine.routes.js";
+import healthRoutes from "./routes/health.routes.js";
 
 const app = express();
 
@@ -15,5 +16,6 @@ mongoose.connect("mongodb://localhost:27017/medisync2")
 
 app.use("/api/medicines", medicineRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/health", healthRoutes);
 
 app.listen(5000, () => console.log("Server running on port 5000"));

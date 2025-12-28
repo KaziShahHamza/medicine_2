@@ -2,10 +2,14 @@
 import { useEffect, useState } from "react";
 import MedicineForm from "../components/MedicineForm";
 import MedicineList from "../components/MedicineList";
+import useHealthLogs from "../hooks/useHealthLogs";
+import HealthLogForm from "../components/HealthLogForm";
+import HealthCharts from "../components/HealthCharts";
 
 export default function Dashboard() {
   const [meds, setMeds] = useState([]);
   const [editing, setEditing] = useState(null);
+  const { logs, addLog } = useHealthLogs();
 
   const token = localStorage.getItem("token");
 
@@ -68,6 +72,12 @@ export default function Dashboard() {
           onEdit={setEditing}
           onDelete={deleteMedicine}
         />
+      </div>
+        <div style={{ padding: 24 }}>
+        <h2>Health Logs</h2>
+
+        <HealthLogForm onAdd={addLog} />
+        <HealthCharts logs={logs} />
       </div>
     </>
   );
