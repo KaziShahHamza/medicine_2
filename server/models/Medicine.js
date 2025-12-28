@@ -2,13 +2,12 @@
 import mongoose from "mongoose";
 
 const medicineSchema = new mongoose.Schema({
-  name: { type: String, required: true },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  name: String,
   dosageTimes: {
     type: [String],
-    enum: ["morning", "noon", "night"],
-    required: true
-  },
-  active: { type: Boolean, default: true }
+    enum: ["morning", "noon", "night"]
+  }
 }, { timestamps: true });
 
 export default mongoose.model("Medicine", medicineSchema);

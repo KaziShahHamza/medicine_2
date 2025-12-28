@@ -1,9 +1,17 @@
-// src/components/MedicineForm.jsx
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function MedicineForm({ onAdd }) {
+const TIMES = ["morning", "noon", "night"];
+
+export default function MedicineForm({ onSave, editing }) {
   const [name, setName] = useState("");
   const [dosageTimes, setDosageTimes] = useState([]);
+
+  useEffect(() => {
+    if (editing) {
+      setName(editing.name);
+      setDosageTimes(editing.dosageTimes);
+    }
+  }, [editing]);
 
   const toggleTime = (time) => {
     setDosageTimes(prev =>
@@ -13,22 +21,16 @@ export default function MedicineForm({ onAdd }) {
     );
   };
 
-  const submit = async (e) => {
+  const submit = (e) => {
     e.preventDefault();
-
-    await fetch("http://localhost:5000/api/medicines", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, dosageTimes })
-    });
+    onSave({ name, dosageTimes });
 
     setName("");
     setDosageTimes([]);
-    onAdd();
   };
 
   return (
-    <form onSubmit={submit}>
+    <form onSubmit={submit} style={{ marginBottom: 20 }}>
       <input
         placeholder="Medicine name"
         value={name}
@@ -36,18 +38,22 @@ export default function MedicineForm({ onAdd }) {
         required
       />
 
-      {["morning", "noon", "night"].map(time => (
-        <label key={time}>
-          <input
-            type="checkbox"
-            checked={dosageTimes.includes(time)}
-            onChange={() => toggleTime(time)}
-          />
-          {time}
-        </label>
-      ))}
+      <div>
+        {TIMES.map(time => (
+          <label key={time} style={{ marginRight: 10 }}>
+            <input
+              type="checkbox"
+              checked={dosageTimes.includes(time)}
+              onChange={() => toggleTime(time)}
+            />
+            {time}
+          </label>
+        ))}
+      </div>
 
-      <button>Add Medicine</button>
+      <button type="submit">
+        {editing ? "Update Medicine" : "Add Medicine"}
+      </button>
     </form>
   );
 }

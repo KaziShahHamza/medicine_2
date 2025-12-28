@@ -1,25 +1,36 @@
 // server/routes/medicine.routes.js
 import express from "express";
 import Medicine from "../models/Medicine.js";
+import auth from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.post("/", async (req, res) => {
-  try {
-    const med = await Medicine.create(req.body);
-    res.status(201).json(med);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-});
-
-router.get("/", async (_, res) => {
-  const meds = await Medicine.find({ active: true });
+router.get("/", auth, async (req, res) => {
+  const meds = await Medicine.find({ user: req.userId });
   res.json(meds);
 });
 
-router.delete("/:id", async (req, res) => {
-  await Medicine.findByIdAndDelete(req.params.id);
+router.post("/", auth, async (req, res) => {
+  const med = await Medicine.create({
+    ...req.body,
+    user: req.userId
+  });
+  res.json(med);
+});
+
+router.put("/:id", auth, async (req, res) => {
+  await Medicine.findOneAndUpdate(
+    { _id: req.params.id, user: req.userId },
+    req.body
+  );
+  res.sendStatus(200);
+});
+
+router.delete("/:id", auth, async (req, res) => {
+  await Medicine.findOneAndDelete({
+    _id: req.params.id,
+    user: req.userId
+  });
   res.sendStatus(204);
 });
 

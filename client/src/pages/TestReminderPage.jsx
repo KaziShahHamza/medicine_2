@@ -1,3 +1,4 @@
+// client/src/pages/TestReminderPage.jsx
 import { TIME_MAP } from "../utils/timeMap";
 
 const SLOT_LABEL = {

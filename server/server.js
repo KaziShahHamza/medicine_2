@@ -2,6 +2,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
+import authRoutes from "./routes/auth.routes.js";
 import medicineRoutes from "./routes/medicine.routes.js";
 
 const app = express();
@@ -13,5 +14,6 @@ mongoose.connect("mongodb://localhost:27017/medisync2")
   .then(() => console.log("MongoDB connected"));
 
 app.use("/api/medicines", medicineRoutes);
+app.use("/api/auth", authRoutes);
 
 app.listen(5000, () => console.log("Server running on port 5000"));

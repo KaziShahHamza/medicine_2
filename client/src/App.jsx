@@ -1,33 +1,69 @@
-import { useEffect, useState } from "react";
-import MedicineForm from "./components/MedicineForm";
-import MedicineList from "./components/MedicineList";
+// client/src/App.jsx
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+
+import { AuthProvider } from "./context/AuthContext";
+import { MedicineProvider, useMedicines } from "./context/MedicineContext";
+
+import ProtectedRoute from "./components/ProtectedRoute";
+import Navbar from "./components/Navbar";
+
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Dashboard from "./pages/Dashboard";
+import TestPage from "./pages/TestPage";
+
 import useMedicineReminder from "./hooks/useMedicineReminder";
-import TestReminderPage from "./pages/TestReminderPage";
+
+function ReminderWrapper() {
+  const { medicines } = useMedicines();
+  useMedicineReminder(medicines);
+  return null;
+}
 
 export default function App() {
-  const [medicines, setMedicines] = useState([]);
-
-  const fetchMeds = async () => {
-    const res = await fetch("http://localhost:5000/api/medicines");
-    const data = await res.json();
-    setMedicines(data);
-  };
-
+  // request notification permission once
   useEffect(() => {
-    Notification.requestPermission();
-    fetchMeds();
+    if (Notification.permission !== "granted") {
+      Notification.requestPermission();
+    }
   }, []);
 
-  useMedicineReminder(medicines);
-
   return (
-    <div style={{ padding: 40 }}>
-      <h1>MediSync</h1>
+    <AuthProvider>
+      <MedicineProvider>
+        <BrowserRouter>
+          <Navbar />
 
-      <MedicineForm onAdd={fetchMeds} />
-      <MedicineList medicines={medicines} />
+          {/* background reminder engine */}
+          <ReminderWrapper />
 
-      <TestReminderPage medicines={medicines} />
-    </div>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/test"
+              element={
+                <ProtectedRoute>
+                  <TestPage />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </BrowserRouter>
+      </MedicineProvider>
+    </AuthProvider>
   );
 }
