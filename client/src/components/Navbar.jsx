@@ -20,7 +20,7 @@ export default function Navbar() {
 
   return (
     <nav className="w-full bg-white shadow-md sticky top-0 z-50">
-      <div className="max-w-full container mx-auto flex items-center justify-between py-4 px-6 md:px-0">
+      <div className="w-full flex items-center justify-between py-4 px-10">
         <Link to="/" className="font-bold text-2xl text-sky-600">
           MediSync
         </Link>
@@ -34,9 +34,10 @@ export default function Navbar() {
 
           {user && (
             <>
-              <span className="ml-4 text-md text-slate-500">
-                Welcome, {user.name || user.email}
-              </span>
+
+              <Link to="/" className={isActive("/")}>
+                Home
+              </Link>
               <Link to="/dashboard" className={isActive("/dashboard")}>
                 Your Medicines
               </Link>
@@ -44,7 +45,9 @@ export default function Navbar() {
                 Health Report
               </Link>
 
-
+              <span className="ml-4 text-md text-slate-500">
+                Welcome, {user.name || user.email}
+              </span>
 
               <button
                 onClick={handleLogout}

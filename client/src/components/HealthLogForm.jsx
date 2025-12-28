@@ -46,6 +46,7 @@ export default function HealthLogForm({ onAdd }) {
         <input
           placeholder="Glucose Level"
           type="number"
+          step="0.1"
           onChange={(e) => setForm((f) => ({ ...f, glucose: e.target.value }))}
           className="input"
         />

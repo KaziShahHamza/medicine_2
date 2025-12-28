@@ -21,7 +21,7 @@ export default function Signup() {
   };
 
   return (
-    <div className="container py-16 max-w-md">
+    <div className="container py-16 w-130">
       <form onSubmit={submit} className="card space-y-4">
         <h2 className="text-2xl font-semibold text-center">
           Create account

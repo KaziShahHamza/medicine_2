@@ -57,7 +57,7 @@ export default function Home() {
 
           <div className="bg-white rounded shadow p-6 text-center space-y-4">
             <img
-              src="https://img.freepik.com/premium-vector/health-report-vector-flat-icon-design-illustration-symbol-white-background-eps-10-file_848977-1206.jpg?semt=ais_hybrid&w=740&q=80"
+              src="../../assets/health_report.png"
               alt="Health Logs"
               className="max-w-full h-40 mx-auto"
             />
