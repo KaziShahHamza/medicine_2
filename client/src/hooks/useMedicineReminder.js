@@ -29,9 +29,12 @@ export default function useMedicineReminder(medicines) {
 
       if (medsForSlot.length === 0) return;
 
+      const medsList = medsForSlot.map(med => `• ${med}`).join("\n");
+
       new Notification("MediSync Reminder", {
-        body: `Take your ${SLOT_LABEL[currentSlot]} medicines: ${medsForSlot.join(", ")}`
+        body: `Take your ${SLOT_LABEL[currentSlot]} medicines:\n${medsList}`
       });
+
 
     }, 60000);
 

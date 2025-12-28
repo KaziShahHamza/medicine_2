@@ -1,49 +1,54 @@
 // client/src/components/Navbar.jsx
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export default function Navbar() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogout = () => {
     logout();
     navigate("/");
   };
 
+  // Helper to apply active class
+  const isActive = (path) =>
+    location.pathname === path
+      ? "text-sky-600 font-semibold border-b-2 border-sky-600"
+      : "text-slate-600 hover:text-sky-600";
+
   return (
-    <nav className="border-b bg-white shadow-sm">
-      <div className="container flex items-center justify-between py-4">
-        <Link to="/" className="font-bold text-xl text-sky-600">
+    <nav className="w-full bg-white shadow-md sticky top-0 z-50">
+      <div className="container mx-auto flex items-center justify-between py-4 px-6 md:px-0">
+        <Link to="/" className="font-bold text-2xl text-sky-600">
           MediSync
         </Link>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-6">
           {!user && (
-            <Link to="/login" className="text-slate-600 hover:text-sky-600">
+            <Link to="/login" className={isActive("/login")}>
               Login
             </Link>
           )}
 
           {user && (
             <>
-              <span className="text-sm text-slate-500">
+              <span className="ml-4 text-md text-slate-500">
                 Welcome, {user.name || user.email}
               </span>
-
-              <Link to="/dashboard" className="hover:text-sky-600">
+              <Link to="/dashboard" className={isActive("/dashboard")}>
                 Your Medicines
               </Link>
-              <Link to="/health" className="hover:text-sky-600">
+              <Link to="/health" className={isActive("/health")}>
                 Health Report
               </Link>
-              <Link to="/test" className="hover:text-sky-600">
-                Test
-              </Link>
+
+
 
               <button
                 onClick={handleLogout}
-                className="text-sm text-red-500 hover:underline cursor-pointer"
+                className="ml-4 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition"
               >
                 Logout
               </button>
