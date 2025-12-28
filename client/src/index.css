@@ -1,3 +1,34 @@
-/* client/src/index.css */
-
 @import "tailwindcss";
+
+/* App theme */
+:root {
+  --color-primary: 14 165 233;   /* sky-500 */
+  --color-primary-dark: 2 132 199;
+  --color-bg: 248 250 252;       /* slate-50 */
+  --color-card: 255 255 255;
+  --color-text: 15 23 42;        /* slate-900 */
+}
+
+body {
+  @apply bg-[rgb(var(--color-bg))] text-[rgb(var(--color-text))];
+  font-family: ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Reusable UI helpers */
+.container {
+  @apply max-w-5xl mx-auto px-4;
+}
+
+.card {
+  @apply bg-[rgb(var(--color-card))] rounded-xl shadow-sm border border-slate-200 p-6;
+}
+
+.btn-primary {
+  @apply bg-[rgb(var(--color-primary))] text-white px-4 py-2 rounded-lg
+         hover:bg-[rgb(var(--color-primary-dark))] transition;
+}
+
+.input {
+  @apply w-full border border-slate-300 rounded-lg px-3 py-2
+         focus:outline-none focus:ring-2 focus:ring-sky-400;
+}

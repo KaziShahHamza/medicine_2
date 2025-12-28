@@ -1,3 +1,4 @@
+// client/src/components/HealthLogForm.jsx
 import { useState } from "react";
 
 export default function HealthLogForm({ onAdd }) {
@@ -11,36 +12,48 @@ export default function HealthLogForm({ onAdd }) {
   };
 
   return (
-    <form onSubmit={submit}>
-      <select value={type} onChange={e => setType(e.target.value)}>
+    <form
+      onSubmit={submit}
+      className="card space-y-4"
+    >
+      <select
+        value={type}
+        onChange={(e) => setType(e.target.value)}
+        className="input"
+      >
         <option value="bp">Blood Pressure</option>
         <option value="diabetes">Diabetes</option>
       </select>
 
       {type === "bp" && (
-        <>
+        <div className="space-y-2">
           <input
             placeholder="High BP (Systolic)"
             type="number"
-            onChange={e => setForm(f => ({ ...f, High: e.target.value }))}
+            onChange={(e) => setForm((f) => ({ ...f, High: e.target.value }))}
+            className="input"
           />
           <input
             placeholder="Low BP (Diastolic)"
             type="number"
-            onChange={e => setForm(f => ({ ...f, Low: e.target.value }))}
+            onChange={(e) => setForm((f) => ({ ...f, Low: e.target.value }))}
+            className="input"
           />
-        </>
+        </div>
       )}
 
       {type === "diabetes" && (
         <input
           placeholder="Glucose Level"
           type="number"
-          onChange={e => setForm(f => ({ ...f, glucose: e.target.value }))}
+          onChange={(e) => setForm((f) => ({ ...f, glucose: e.target.value }))}
+          className="input"
         />
       )}
 
-      <button>Add Log</button>
+      <button type="submit" className="btn-primary w-full">
+        Add Log
+      </button>
     </form>
   );
 }

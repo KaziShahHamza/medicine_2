@@ -2,15 +2,10 @@
 import { useEffect, useState } from "react";
 import MedicineForm from "../components/MedicineForm";
 import MedicineList from "../components/MedicineList";
-import useHealthLogs from "../hooks/useHealthLogs";
-import HealthLogForm from "../components/HealthLogForm";
-import HealthCharts from "../components/HealthCharts";
 
 export default function Dashboard() {
   const [meds, setMeds] = useState([]);
   const [editing, setEditing] = useState(null);
-  const { logs, addLog } = useHealthLogs();
-
   const token = localStorage.getItem("token");
 
   const fetchMeds = async () => {
@@ -45,7 +40,6 @@ export default function Dashboard() {
         body: JSON.stringify(data)
       });
     }
-
     fetchMeds();
   };
 
@@ -58,27 +52,22 @@ export default function Dashboard() {
   };
 
   return (
-    <>
-      <div style={{ padding: 24 }}>
-        <h2>Your Medicines</h2>
+    <div className="container py-8">
+      <h2 className="text-2xl font-semibold mb-6">Your Medicines</h2>
 
-        <MedicineForm
-          onSave={saveMedicine}
-          editing={editing}
-        />
+      <div className="grid md:grid-cols-2 gap-6">
+        <div>
+          <MedicineList
+            medicines={meds}
+            onEdit={setEditing}
+            onDelete={deleteMedicine}
+          />
+        </div>
 
-        <MedicineList
-          medicines={meds}
-          onEdit={setEditing}
-          onDelete={deleteMedicine}
-        />
+        <div>
+          <MedicineForm onSave={saveMedicine} editing={editing} />
+        </div>
       </div>
-        <div style={{ padding: 24 }}>
-        <h2>Health Logs</h2>
-
-        <HealthLogForm onAdd={addLog} />
-        <HealthCharts logs={logs} />
-      </div>
-    </>
+    </div>
   );
 }

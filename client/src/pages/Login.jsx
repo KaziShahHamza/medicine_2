@@ -7,14 +7,14 @@ export default function Login() {
 
   const submit = async (e) => {
     e.preventDefault();
-    const form = e.target;
+    const f = e.target;
 
     const res = await fetch("http://localhost:5000/api/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        email: form.email.value,
-        password: form.password.value
+        email: f.email.value,
+        password: f.password.value
       })
     });
 
@@ -24,18 +24,26 @@ export default function Login() {
   };
 
   return (
-    <form onSubmit={submit}>
-      <h2>Login</h2>
+    <div className="container py-16 max-w-md">
+      <form onSubmit={submit} className="card space-y-4">
+        <h2 className="text-2xl font-semibold text-center">
+          Login
+        </h2>
 
-      <input name="email" placeholder="Email" />
-      <input name="password" type="password" placeholder="Password" />
+        <input name="email" placeholder="Email" className="input" />
+        <input name="password" type="password" placeholder="Password" className="input" />
 
-      <button>Login</button>
+        <button className="btn-primary w-full">
+          Login
+        </button>
 
-      <p>
-        Don’t have an account?{" "}
-        <Link to="/signup">Sign up</Link>
-      </p>
-    </form>
+        <p className="text-sm text-center text-slate-600">
+          Don’t have an account?{" "}
+          <Link to="/signup" className="text-sky-600 hover:underline">
+            Sign up
+          </Link>
+        </p>
+      </form>
+    </div>
   );
 }

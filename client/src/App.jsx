@@ -15,6 +15,7 @@ import Dashboard from "./pages/Dashboard";
 import TestPage from "./pages/TestPage";
 
 import useMedicineReminder from "./hooks/useMedicineReminder";
+import Health from "./pages/Health";
 
 function ReminderWrapper() {
   const { medicines } = useMedicines();
@@ -49,6 +50,15 @@ export default function App() {
               element={
                 <ProtectedRoute>
                   <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/health"
+              element={
+                <ProtectedRoute>
+                  <Health />
                 </ProtectedRoute>
               }
             />

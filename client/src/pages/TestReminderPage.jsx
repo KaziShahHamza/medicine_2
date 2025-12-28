@@ -1,6 +1,4 @@
 // client/src/pages/TestReminderPage.jsx
-import { TIME_MAP } from "../utils/timeMap";
-
 const SLOT_LABEL = {
   morning: "Morning",
   noon: "Noon",
@@ -8,7 +6,6 @@ const SLOT_LABEL = {
 };
 
 export default function TestReminderPage({ medicines }) {
-
   const triggerSlot = (slot) => {
     if (Notification.permission !== "granted") {
       alert("Notification permission not granted");
@@ -16,8 +13,8 @@ export default function TestReminderPage({ medicines }) {
     }
 
     const medsForSlot = medicines
-      .filter(med => med.dosageTimes.includes(slot))
-      .map(med => med.name);
+      .filter((med) => med.dosageTimes.includes(slot))
+      .map((med) => med.name);
 
     if (medsForSlot.length === 0) {
       alert(`No ${slot} medicines found`);
@@ -30,20 +27,20 @@ export default function TestReminderPage({ medicines }) {
   };
 
   return (
-    <div style={{ marginTop: 40 }}>
-      <h2>Test Notifications</h2>
+    <div className="container py-8">
+      <h2 className="text-2xl font-semibold mb-6">Test Notifications</h2>
 
-      <button onClick={() => triggerSlot("morning")}>
-        Trigger Morning
-      </button>
-
-      <button onClick={() => triggerSlot("noon")}>
-        Trigger Noon
-      </button>
-
-      <button onClick={() => triggerSlot("night")}>
-        Trigger Night
-      </button>
+      <div className="flex gap-4">
+        {["morning", "noon", "night"].map((slot) => (
+          <button
+            key={slot}
+            onClick={() => triggerSlot(slot)}
+            className="px-4 py-2 bg-sky-500 text-white rounded hover:bg-sky-600 transition"
+          >
+            Trigger {SLOT_LABEL[slot]}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }

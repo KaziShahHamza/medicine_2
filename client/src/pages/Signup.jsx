@@ -21,19 +21,27 @@ export default function Signup() {
   };
 
   return (
-    <form onSubmit={submit}>
-      <h2>Signup</h2>
+    <div className="container py-16 max-w-md">
+      <form onSubmit={submit} className="card space-y-4">
+        <h2 className="text-2xl font-semibold text-center">
+          Create account
+        </h2>
 
-      <input name="name" placeholder="Name" />
-      <input name="email" placeholder="Email" />
-      <input name="password" type="password" />
+        <input name="name" placeholder="Name" className="input" />
+        <input name="email" placeholder="Email" className="input" />
+        <input name="password" type="password" placeholder="Password" className="input" />
 
-      <button>Signup</button>
+        <button className="btn-primary w-full">
+          Signup
+        </button>
 
-      <p>
-        Already have an account?{" "}
-        <Link to="/login">Login</Link>
-      </p>
-    </form>
+        <p className="text-sm text-center text-slate-600">
+          Already have an account?{" "}
+          <Link to="/login" className="text-sky-600 hover:underline">
+            Login
+          </Link>
+        </p>
+      </form>
+    </div>
   );
 }

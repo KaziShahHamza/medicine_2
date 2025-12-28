@@ -1,3 +1,4 @@
+// client/src/components/MedicineForm.jsx
 import { useEffect, useState } from "react";
 
 const TIMES = ["morning", "noon", "night"];
@@ -14,44 +15,42 @@ export default function MedicineForm({ onSave, editing }) {
   }, [editing]);
 
   const toggleTime = (time) => {
-    setDosageTimes(prev =>
-      prev.includes(time)
-        ? prev.filter(t => t !== time)
-        : [...prev, time]
+    setDosageTimes((prev) =>
+      prev.includes(time) ? prev.filter((t) => t !== time) : [...prev, time]
     );
   };
 
   const submit = (e) => {
     e.preventDefault();
     onSave({ name, dosageTimes });
-
     setName("");
     setDosageTimes([]);
   };
 
   return (
-    <form onSubmit={submit} style={{ marginBottom: 20 }}>
+    <form onSubmit={submit} className="card space-y-4">
       <input
         placeholder="Medicine name"
         value={name}
-        onChange={e => setName(e.target.value)}
+        onChange={(e) => setName(e.target.value)}
+        className="input"
         required
       />
 
-      <div>
-        {TIMES.map(time => (
-          <label key={time} style={{ marginRight: 10 }}>
+      <div className="flex gap-4">
+        {TIMES.map((time) => (
+          <label key={time} className="flex items-center gap-1">
             <input
               type="checkbox"
               checked={dosageTimes.includes(time)}
               onChange={() => toggleTime(time)}
             />
-            {time}
+            {time.charAt(0).toUpperCase() + time.slice(1)}
           </label>
         ))}
       </div>
 
-      <button type="submit">
+      <button type="submit" className="btn-primary w-full">
         {editing ? "Update Medicine" : "Add Medicine"}
       </button>
     </form>
