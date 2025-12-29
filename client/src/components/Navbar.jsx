@@ -45,7 +45,7 @@ export default function Navbar() {
                 Health Report
               </Link>
 
-              <span className="ml-4 text-md text-slate-500">
+              <span className="ml-4 text-md text-slate-400">
                 Welcome, {user.name || user.email}
               </span>
 
