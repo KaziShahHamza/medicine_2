@@ -2,6 +2,10 @@
 
 A full-stack web application for managing medications, tracking health logs, and setting up medicine reminders. Built with React and Node.js.
 
+- **React 19** - UI library
+- **Vite** - Build tool and dev server
+- **React Router DOM** - Client-side routing
+- **Chart.js & Re
 ## Features
 
 - **User Authentication** - Secure signup/login system with JWT
@@ -13,11 +17,7 @@ A full-stack web application for managing medications, tracking health logs, and
 
 ## Tech Stack
 
-### Frontend
-- **React 19** - UI library
-- **Vite** - Build tool and dev server
-- **React Router DOM** - Client-side routing
-- **Chart.js & React-ChartJS-2** - Data visualization
+### Frontendact-ChartJS-2** - Data visualization
 - **Tailwind CSS** - Utility-first CSS framework
 - **Context API** - State management
 

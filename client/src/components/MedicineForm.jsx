@@ -6,11 +6,13 @@ const TIMES = ["morning", "noon", "night"];
 export default function MedicineForm({ onSave, editing }) {
   const [name, setName] = useState("");
   const [dosageTimes, setDosageTimes] = useState([]);
+  const [imageUrl, setImageUrl] = useState("");
 
   useEffect(() => {
     if (editing) {
       setName(editing.name);
-      setDosageTimes(editing.dosageTimes);
+      setDosageTimes(editing.dosageTimes || []);
+      setImageUrl(editing.imageUrl || "");
     }
   }, [editing]);
 
@@ -22,9 +24,10 @@ export default function MedicineForm({ onSave, editing }) {
 
   const submit = (e) => {
     e.preventDefault();
-    onSave({ name, dosageTimes });
+    onSave({ name, dosageTimes, imageUrl });
     setName("");
     setDosageTimes([]);
+    setImageUrl("");
   };
 
   return (
@@ -35,6 +38,13 @@ export default function MedicineForm({ onSave, editing }) {
         onChange={(e) => setName(e.target.value)}
         className="input"
         required
+      />
+
+      <input
+        placeholder="Image URL (optional)"
+        value={imageUrl}
+        onChange={(e) => setImageUrl(e.target.value)}
+        className="input"
       />
 
       <div className="flex gap-4">

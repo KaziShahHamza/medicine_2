@@ -5,16 +5,29 @@ export default function MedicineList({ medicines, onEdit, onDelete }) {
       {medicines.map((med) => (
         <li
           key={med._id}
-          className="flex justify-between items-center p-4 rounded shadow-lg hover:shadow-md transition"
+          className="flex justify-between items-center p-2 rounded shadow-lg hover:shadow-md transition"
         >
-          <div>
-            <strong className="text-lg">{med.name}</strong>
-            <p className="text-sm text-slate-600">
-              {med.dosageTimes.map(t => t.charAt(0).toUpperCase() + t.slice(1)).join(", ")}
-            </p>
+          <div className="flex items-center gap-4">
+            <img
+              src={med.imageUrl || "https://via.placeholder.com/60"}
+              alt={med.name}
+              className="w-24 h-24 object-cover rounded border"
+              onError={(e) => {
+                e.currentTarget.src = "https://via.placeholder.com/60";
+              }}
+            />
+
+            <div>
+              <strong className="text-2xl">{med.name}</strong>
+              <p className="text-lg text-slate-600">
+                {med.dosageTimes
+                  .map(t => t.charAt(0).toUpperCase() + t.slice(1))
+                  .join(", ")}
+              </p>
+            </div>
           </div>
 
-          <div className="flex gap-2">
+          <div className="flex gap-2 flex-col">
             <button
               onClick={() => onEdit(med)}
               className="px-3 py-1 bg-sky-500 text-white rounded hover:bg-sky-600 transition"
